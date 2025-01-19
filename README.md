@@ -2,9 +2,19 @@
 
 Live Deployment Link [digital-pulse](https://digital-pulse-assignment-3.vercel.app/).
 
-## Features & Functionality
+## digital-pulse-api
 
-- This is a crud server.
+- Create User **POST** `https://digital-pulse-assignment-3.vercel.app/api/user/create-user`
+- Create Admin **POST** `https://digital-pulse-assignment-3.vercel.app/api/user/create-admin`
+- Auth Register **POST** `https://digital-pulse-assignment-3.vercel.app/api/auth/register`
+- Auth Login **POST** `https://digital-pulse-assignment-3.vercel.app/api/auth/login`
+- Auth Login **POST** `https://digital-pulse-assignment-3.vercel.app/api/auth/login`
+- All Blogs **GET** `https://digital-pulse-assignment-3.vercel.app/api/blogs?sortBy=createdAt&sortOrder=desc&search=Digital Marketing&author=authorId`
+- Create Blog **POST** `https://digital-pulse-assignment-3.vercel.app/api/blogs`
+- Update Blog **PATCH** `https://digital-pulse-assignment-3.vercel.app/api/blogs/blogId`
+- Delete Blog **DELETE** `https://digital-pulse-assignment-3.vercel.app/api/blogs/blogId`
+- Admin - Block User **PATCH** `https://digital-pulse-assignment-3.vercel.app/api/admin/users/:userId/block`
+- Admin - Blog User **PATCH** `https://digital-pulse-assignment-3.vercel.app/api/admin/blogs/:blogId`
 
 ## List of Technologies
 
