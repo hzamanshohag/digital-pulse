@@ -1,3 +1,4 @@
+import config from '../../config';
 import User from '../user/user.model';
 import { ILoginUser, IRegisterUser } from './auth.interface';
 import bcrypt from 'bcrypt';
@@ -15,10 +16,10 @@ const loginDB = async (payload: ILoginUser) => {
   if (!user) {
     throw new Error('Invalid credentials');
   }
-  //   const userStatus = user?.userStatus;
-  //   if (userStatus === 'inactive') {
-  //     throw new Error('User is not active');
-  //   }
+  const userStatus = user?.isBlocked;
+  if (userStatus === true) {
+    throw new Error('User is  blocked');
+  }
   const isPasswordMatch = await bcrypt.compare(payload.password, user.password);
   if (!isPasswordMatch) {
     throw new Error('Password is wrong');
@@ -26,8 +27,10 @@ const loginDB = async (payload: ILoginUser) => {
 
   const token = await jwt.sign(
     { _id: user?._id, role: user?.role },
-    'secret',
-    { expiresIn: '1d' },
+    `${config.jwt_access_secret}`,
+    {
+      expiresIn: config.jwt_access_expires_in,
+    },
   );
 
   //          "name": "John Doe",

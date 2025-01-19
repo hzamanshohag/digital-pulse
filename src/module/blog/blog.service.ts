@@ -68,7 +68,7 @@ const deleteBlogDB = async (id: string, user: JwtPayload) => {
 // };
 
 const getBlogDB = async (query: Record<string, unknown>) => {
-  const { search, author } = query;
+  const { search, author, sortBy = 'createdAt', sortOrder = 'asc' } = query;
 
   const querydata: Record<string, unknown> = {};
   if (search && typeof search === 'string') {
@@ -78,44 +78,26 @@ const getBlogDB = async (query: Record<string, unknown>) => {
     ];
   }
 
+  if (author && typeof author === 'string' && author.length === 24) {
+    querydata.author = new Types.ObjectId(author);
+  } else if (author) {
+    throw new Error('Author not found');
+  }
+
   const searchData = Blog.find(querydata);
 
-  let sortStr = 'createdAt';
+  const sortStr = `${sortOrder === 'desc' ? '-' : ''}${sortBy}`;
 
-  if (query?.sortBy && query?.sortOrder) {
-    const sortBy = query.sortBy;
-    const sortOrder = query.sortOrder;
-    sortStr = `${sortOrder === 'desc' ? '-' : ''}${sortBy}`;
-  }
-  const sortData = await searchData.sort(sortStr);
+  const sortedData = await searchData.sort(sortStr).select({
+    _id: 1,
+    title: 1,
+    content: 1,
+    author: 1,
+    createdAt: 1,
+    updatedAt: 1,
+  });
 
-  if (author && typeof author === 'string' && author.length === 24) {
-    // Convert author string to ObjectId
-    const authorId = new Types.ObjectId(author);
-
-    // Query to find all blogs with the specified author
-    const blogs = await Blog.aggregate([
-      {
-        $match: {
-          author: authorId, // Match blogs by author ID
-        },
-      },
-      {
-        $project: {
-          _id: 1,
-          title: 1,
-          content: 1,
-          author: 1,
-          createdAt: 1,
-          updatedAt: 1,
-        },
-      },
-    ]);
-
-    // Return the result (array of objects)
-    return blogs;
-  }
-  return sortData;
+  return sortedData;
 };
 
 export const blogService = {
