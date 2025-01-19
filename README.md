@@ -16,13 +16,6 @@ Live Deployment Link [digital-pulse](https://digital-pulse-assignment-3.vercel.a
 - Admin - Block User **PATCH** `https://digital-pulse-assignment-3.vercel.app/api/admin/users/:userId/block`
 - Admin - Blog User **PATCH** `https://digital-pulse-assignment-3.vercel.app/api/admin/blogs/:blogId`
 
-## List of Technologies
-
-- Node.js
-- Express.js
-- Mongoose
-- TypeScript
-
 ## Package Management
 
 - ts-node
