@@ -46,7 +46,7 @@ const getBlog = catchAsync(async (req: Request, res: Response) => {
 
   res.send({
     success: true,
-    message: 'Blog deleted successfully',
+    message: 'Blogs fetched successfully',
     statusCode: StatusCodes.OK,
     data: result,
   });
