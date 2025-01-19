@@ -1,6 +1,6 @@
 # digital-pulse-assignment-3
 
-Live Deployment Link [digital-pulse](https://stationery-shop-six.vercel.app/).
+Live Deployment Link [digital-pulse](https://digital-pulse-assignment-3.vercel.app/).
 
 ## Features & Functionality
 
