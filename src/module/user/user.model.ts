@@ -8,6 +8,7 @@ const userSchema = new Schema<Iuser>(
     name: {
       type: String,
       required: true,
+      unique: true,
       minlength: [3, 'name is too small'],
       maxlength: [20, 'name is very long'],
     },
@@ -59,6 +60,13 @@ userSchema.pre('save', async function (next) {
 
 userSchema.post('save', function (doc, next) {
   doc.password = '';
+  next();
+});
+userSchema.pre('save', async function (next) {
+  const user = await User.findOne({ email: this.email });
+  if (user) {
+    throw new Error('Email already exists');
+  }
   next();
 });
 

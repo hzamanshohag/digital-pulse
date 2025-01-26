@@ -7,6 +7,7 @@ import catchAsync from '../../utils/catchAsync';
 const createUser = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;
   const result = await userService.createUser(payload);
+
   sendResponse(res, {
     statusCode: StatusCodes.CREATED,
     message: 'User registered successfully',
