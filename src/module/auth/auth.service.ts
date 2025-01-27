@@ -25,6 +25,8 @@ const loginDB = async (payload: ILoginUser) => {
     throw new Error('Password is wrong');
   }
 
+  
+
   const token = await jwt.sign(
     { _id: user?._id, role: user?.role },
     `${config.jwt_access_secret}`,
@@ -33,22 +35,12 @@ const loginDB = async (payload: ILoginUser) => {
     },
   );
 
-  //          "name": "John Doe",
-  //         "email": "john12@example.com",
-  //         "password": "securepassword",
-  //         "role": "user",
-  //         "isBlocked": false,
-  //         "_id": "678bbe867d8a3024f4507c54",
-  //         "createdAt": "2025-01-18T14:45:26.108Z",
-  //         "updatedAt": "2025-01-18T14:45:26.108Z",
-
   const verifiedUser = {
     _id: user?._id,
     name: user?.name,
     email: user?.email,
     role: user?.role,
     isBlocked: user?.isBlocked,
-    // createdAt: user?.createdAt,
   };
 
   return {
