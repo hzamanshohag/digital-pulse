@@ -1,3 +1,5 @@
+import { AppError } from './../helpers/AppError';
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -9,12 +11,7 @@ import { handleCastError } from '../helpers/handleCastError';
 import { handleValidationError } from '../helpers/handleValidationError';
 import { handleZodError } from '../helpers/handleZodError';
 import { ZodError } from 'zod';
-import { AppError } from '../helpers/AppError';
-
-type TErrorSources = {
-  path: string | number;
-  message: string;
-}[];
+import config from '../config';
 
 export const globalErrorHandler = (
   err: any,
@@ -23,9 +20,15 @@ export const globalErrorHandler = (
   next: NextFunction,
 ) => {
   let statusCode = 500;
-  let success = false;
   let message = 'Something went wrong!';
-  let error;
+  
+
+  let error = [
+    {
+      path: '',
+      message: 'Something went wrong!',
+    },
+  ];
 
   if (err instanceof ZodError) {
     handleZodError(err, res);
@@ -35,12 +38,29 @@ export const globalErrorHandler = (
     handleValidationError(err, res);
   } else if (err.code && err.code === 11000) {
     handleDuplicateError(err, res);
-  } else if (err instanceof AppError) {
-    success = err.success;
+  }  else if (err instanceof AppError) {
     statusCode = err?.statusCode;
     message = err?.message;
-    error = err;
+    error = [
+      {
+        path: '',
+        message: err.message,
+      },
+    ];
   } else if (err instanceof Error) {
-    handleGenericError(err, res);
+    // handleGenericError(err, res);
+    message = err?.message;
+    error = [
+      {
+        path: '',
+        message: err.message,
+      },
+    ];
   }
+  res.status(statusCode).json({
+    success: false,
+    message,
+    error,
+    stack: config.NODE_ENV === 'development' ? err?.stack : null,
+  });
 };

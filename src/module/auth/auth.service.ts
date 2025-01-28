@@ -1,4 +1,6 @@
+import { StatusCodes } from 'http-status-codes';
 import config from '../../config';
+import { AppError } from '../../helpers/AppError';
 import User from '../user/user.model';
 import { ILoginUser, IRegisterUser } from './auth.interface';
 import bcrypt from 'bcrypt';
@@ -14,7 +16,7 @@ const loginDB = async (payload: ILoginUser) => {
     '+password',
   );
   if (!user) {
-    throw new Error('Invalid credentials');
+    throw new AppError(StatusCodes.UNAUTHORIZED, false, 'Invalid credentials');
   }
   const userStatus = user?.isBlocked;
   if (userStatus === true) {
