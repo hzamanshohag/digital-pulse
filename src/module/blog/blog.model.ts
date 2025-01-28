@@ -14,7 +14,7 @@ const blogSchema = new Schema<IBlog>(
     author: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: true,
+      required: [true, 'Author id is required'],
     },
   },
   { timestamps: true },

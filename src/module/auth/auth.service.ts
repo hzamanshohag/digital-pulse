@@ -25,8 +25,6 @@ const loginDB = async (payload: ILoginUser) => {
     throw new Error('Password is wrong');
   }
 
-  
-
   const token = await jwt.sign(
     { _id: user?._id, role: user?.role },
     `${config.jwt_access_secret}`,

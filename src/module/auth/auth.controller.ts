@@ -5,14 +5,25 @@ import { StatusCodes } from 'http-status-codes';
 import { AuthService } from './auth.service';
 
 const register = catchAsync(async (req: Request, res: Response) => {
-  const { _id, name, email } = await AuthService.registerDB(req.body);
+  // const { _id, name, email } = await AuthService.registerDB(req.body);
 
-  sendResponse(res, {
-    status: true,
-    statusCode: StatusCodes.CREATED,
-    message: 'User registered successfully',
-    data: { _id, name, email },
-  });
+  // sendResponse(res, {
+  //   status: true,
+  //   statusCode: StatusCodes.CREATED,
+  //   message: 'User registered successfully',
+  //   data: { _id, name, email },
+  // });
+  const payload = req.body;
+  const result = await AuthService.registerDB(payload);
+  if (result) {
+    const { _id, name, email } = result;
+    sendResponse(res, {
+      status: true,
+      statusCode: StatusCodes.CREATED,
+      message: 'User registered successfully',
+      data: { _id, name, email },
+    });
+  }
 });
 
 const login = catchAsync(async (req: Request, res: Response) => {

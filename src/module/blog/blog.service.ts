@@ -88,12 +88,15 @@ const getBlogDB = async (query: Record<string, unknown>) => {
   const sortStr = `${sortOrder === 'desc' ? '-' : ''}${sortBy}`;
   const searchData = Blog.find(querydata);
 
-  const sortedData = await searchData.sort(sortStr).select({
-    _id: 1,
-    title: 1,
-    content: 1,
-    author: 1,
-  });
+  const sortedData = await searchData
+    .sort(sortStr)
+    .select({
+      _id: 1,
+      title: 1,
+      content: 1,
+      author: 1,
+    })
+    .populate('author');
   return sortedData;
 };
 
