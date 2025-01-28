@@ -4,12 +4,12 @@ Live Deployment Link [digital-pulse](https://digital-pulse-assignment-3.vercel.a
 
 ## digital-pulse-api
 
-- Create User **POST** `https://digital-pulse-assignment-3.vercel.app/api/user/create-user`
+<!-- - Create User **POST** `https://digital-pulse-assignment-3.vercel.app/api/user/create-user` -->
 - Create Admin **POST** `https://digital-pulse-assignment-3.vercel.app/api/user/create-admin`
-- Auth Register **POST** `https://digital-pulse-assignment-3.vercel.app/api/auth/register`
+- Register User **POST** `https://digital-pulse-assignment-3.vercel.app/api/auth/register`
 - Auth Login **POST** `https://digital-pulse-assignment-3.vercel.app/api/auth/login`
 - Auth Login **POST** `https://digital-pulse-assignment-3.vercel.app/api/auth/login`
-- All Blogs **GET** `https://digital-pulse-assignment-3.vercel.app/api/blogs?sortBy=createdAt&sortOrder=desc&search=Digital Marketing&author=authorId`
+- All Blogs **GET** `https://digital-pulse-assignment-3.vercel.app/api/blogs?sortOrder=desc&sortBy=createdAt&search=Marketing&filter=authorId`
 - Create Blog **POST** `https://digital-pulse-assignment-3.vercel.app/api/blogs`
 - Update Blog **PATCH** `https://digital-pulse-assignment-3.vercel.app/api/blogs/blogId`
 - Delete Blog **DELETE** `https://digital-pulse-assignment-3.vercel.app/api/blogs/blogId`
@@ -31,20 +31,16 @@ Live Deployment Link [digital-pulse](https://digital-pulse-assignment-3.vercel.a
 
 The goal of this assignment is to develop a backend for a blogging platform where users can write, update, and delete their blogs. The system will have two roles: **Admin** and **User**. The Admin has special permissions to manage users and their blogs, while users can perform CRUD operations on their own blogs. The backend will include secure authentication, role-based access control, and a public API for viewing blogs with search, sort, and filter functionalities.
 
-* * *
-
-  
+---
 
 ## Technologies
 
-*   **TypeScript**
-*   **Node.js**
-*   **Express.js**
-*   **MongoDB with Mongoose**
+- **TypeScript**
+- **Node.js**
+- **Express.js**
+- **MongoDB with Mongoose**
 
-* * *
-
-  
+---
 
 ## Features and Requirements
 
@@ -52,62 +48,58 @@ The goal of this assignment is to develop a backend for a blogging platform wher
 
 #### Admin:
 
-*   Will be created manually in the database with predefined credentials.
-*   Can delete any blog.
-*   Can block any user by updating a property `isBlocked`.
-*   **Cannot update any blog.**
+- Will be created manually in the database with predefined credentials.
+- Can delete any blog.
+- Can block any user by updating a property `isBlocked`.
+- **Cannot update any blog.**
 
 #### User:
 
-*   Can register and log in.
-*   Can create blogs (only when logged in).
-*   Can update and delete their own blogs.
-*   **Cannot perform admin actions.**
+- Can register and log in.
+- Can create blogs (only when logged in).
+- Can update and delete their own blogs.
+- **Cannot perform admin actions.**
 
 ### 2\. Authentication & Authorization
 
 #### Authentication:
 
-*   Users must log in to perform write, update, and delete operations.
+- Users must log in to perform write, update, and delete operations.
 
 #### Authorization:
 
-*   Admin and User roles must be differentiated and secured.
+- Admin and User roles must be differentiated and secured.
 
 ### 3\. Blog API
 
-*   A public API for reading blogs:
-    *   Includes blog title, content, author details & other necessary information.
-    *   Supports **search**, **sorting**, and **filtering** functionalities.
+- A public API for reading blogs:
+  - Includes blog title, content, author details & other necessary information.
+  - Supports **search**, **sorting**, and **filtering** functionalities.
 
-* * *
+---
 
 ## Models
 
-  
-
 **User Model:**
 
-*   `name`: string – The full name of the user.
-*   `email`: string – The email address of the user, used for authentication and communication.
-*   `password`: string – The password for the user, securely stored.
-*   `role`: "admin" | "user" – The role of the user, determining their access level. Default is "user".
-*   `isBlocked`: boolean – A flag indicating whether the user is blocked or not. Default is false.
-*   `createdAt`: Date – The timestamp when the user was created.
-*   `updatedAt`: Date – The timestamp of the last update to the user.
-
-  
+- `name`: string – The full name of the user.
+- `email`: string – The email address of the user, used for authentication and communication.
+- `password`: string – The password for the user, securely stored.
+- `role`: "admin" | "user" – The role of the user, determining their access level. Default is "user".
+- `isBlocked`: boolean – A flag indicating whether the user is blocked or not. Default is false.
+- `createdAt`: Date – The timestamp when the user was created.
+- `updatedAt`: Date – The timestamp of the last update to the user.
 
 **Blog Model:**
 
-*   `title`: string – The title of the blog post.
-*   `content`: string – The main body or content of the blog post.
-*   `author`: ObjectId – A reference to the `User` model, indicating the author of the blog post.
-*   `isPublished`: boolean – A flag indicating whether the blog post is published. Default is true (published).
-*   `createdAt`: Date – The timestamp when the blog post was created.
-*   `updatedAt`: Date – The timestamp of the last update to the blog post.
+- `title`: string – The title of the blog post.
+- `content`: string – The main body or content of the blog post.
+- `author`: ObjectId – A reference to the `User` model, indicating the author of the blog post.
+- `isPublished`: boolean – A flag indicating whether the blog post is published. Default is true (published).
+- `createdAt`: Date – The timestamp when the blog post was created.
+- `updatedAt`: Date – The timestamp of the last update to the blog post.
 
-##   
+##
 
 ## API Endpoints
 
@@ -131,7 +123,7 @@ The goal of this assignment is to develop a backend for a blogging platform wher
 
 **Response:**
 
-*   **Success (201):**
+- **Success (201):**
 
 ```json
 {
@@ -146,7 +138,7 @@ The goal of this assignment is to develop a backend for a blogging platform wher
 }
 ```
 
-*   **Failure (400):**
+- **Failure (400):**
 
 ```json
 {
@@ -158,7 +150,7 @@ The goal of this assignment is to develop a backend for a blogging platform wher
 }
 ```
 
-####   
+####
 
 #### 1.2 Login User
 
@@ -177,7 +169,7 @@ The goal of this assignment is to develop a backend for a blogging platform wher
 
 **Response:**
 
-*   **Success (200):**
+- **Success (200):**
 
 ```json
 {
@@ -190,7 +182,7 @@ The goal of this assignment is to develop a backend for a blogging platform wher
 }
 ```
 
-*   **Failure (401):**
+- **Failure (401):**
 
 ```json
 {
@@ -202,7 +194,7 @@ The goal of this assignment is to develop a backend for a blogging platform wher
 }
 ```
 
-###   
+###
 
 ### 2\. Blog Management
 
@@ -225,7 +217,7 @@ The goal of this assignment is to develop a backend for a blogging platform wher
 
 **Response:**
 
-*   **Success (201):**
+- **Success (201):**
 
 ```json
 {
@@ -241,7 +233,7 @@ The goal of this assignment is to develop a backend for a blogging platform wher
 }
 ```
 
-####   
+####
 
 #### 2.2 Update Blog
 
@@ -262,7 +254,7 @@ The goal of this assignment is to develop a backend for a blogging platform wher
 
 **Response:**
 
-*   **Success (200):**
+- **Success (200):**
 
 ```json
 {
@@ -278,7 +270,7 @@ The goal of this assignment is to develop a backend for a blogging platform wher
 }
 ```
 
-####   
+####
 
 #### 2.3 Delete Blog
 
@@ -290,7 +282,7 @@ The goal of this assignment is to develop a backend for a blogging platform wher
 
 **Response:**
 
-*   **Success (200):**
+- **Success (200):**
 
 ```json
 {
@@ -300,7 +292,7 @@ The goal of this assignment is to develop a backend for a blogging platform wher
 }
 ```
 
-####   
+####
 
 #### 2.4 Get All Blogs (Public)
 
@@ -310,12 +302,10 @@ The goal of this assignment is to develop a backend for a blogging platform wher
 
 **Query Parameters**:
 
-*   `search`: Search blogs by title or content (e.g., `search=blogtitle`).
-*   `sortBy`: Sort blogs by specific fields such as `createdAt` or `title` (e.g., `sortBy=title`).
-*   `sortOrder`: Defines the sorting order. Accepts values `asc` (ascending) or `desc` (descending). (e.g., `sortOrder=desc`).
-*   `filter`: Filter blogs by author ID (e.g., `filter=authorId`).
-
-  
+- `search`: Search blogs by title or content (e.g., `search=blogtitle`).
+- `sortBy`: Sort blogs by specific fields such as `createdAt` or `title` (e.g., `sortBy=title`).
+- `sortOrder`: Defines the sorting order. Accepts values `asc` (ascending) or `desc` (descending). (e.g., `sortOrder=desc`).
+- `filter`: Filter blogs by author ID (e.g., `filter=authorId`).
 
 **Example Request URL**:
 
@@ -325,16 +315,14 @@ The goal of this assignment is to develop a backend for a blogging platform wher
 
 In this example:
 
-*   `search=technology`: Filters blogs containing the term "technology" in the title or content.
-*   `sortBy=createdAt`: Sorts the blogs by the `createdAt` field.
-*   `sortOrder=desc`: Sorts in descending order (newest blogs first).
-*   `filter=60b8f42f9c2a3c9b7cbd4f18`: Filters blogs authored by the user with the given `authorId`.
-
-  
+- `search=technology`: Filters blogs containing the term "technology" in the title or content.
+- `sortBy=createdAt`: Sorts the blogs by the `createdAt` field.
+- `sortOrder=desc`: Sorts in descending order (newest blogs first).
+- `filter=60b8f42f9c2a3c9b7cbd4f18`: Filters blogs authored by the user with the given `authorId`.
 
 **Response:**
 
-*   **Success (200):**
+- **Success (200):**
 
 ```json
 {
@@ -352,7 +340,7 @@ In this example:
 }
 ```
 
-###   
+###
 
 ### 3\. Admin Actions
 
@@ -366,7 +354,7 @@ In this example:
 
 **Response:**
 
-*   **Success (200):**
+- **Success (200):**
 
 ```json
 {
@@ -376,7 +364,7 @@ In this example:
 }
 ```
 
-####   
+####
 
 #### 3.2 Delete Blog
 
@@ -388,7 +376,7 @@ In this example:
 
 **Response:**
 
-*   **Success (200):**
+- **Success (200):**
 
 ```json
 {
@@ -398,4 +386,4 @@ In this example:
 }
 ```
 
-* * *
+---
