@@ -20,11 +20,11 @@ const loginDB = async (payload: ILoginUser) => {
   }
   const userStatus = user?.isBlocked;
   if (userStatus === true) {
-    throw new Error('User is  blocked');
+    throw new AppError(StatusCodes.UNAUTHORIZED, false, 'User is  blocked');
   }
   const isPasswordMatch = await bcrypt.compare(payload.password, user.password);
   if (!isPasswordMatch) {
-    throw new Error('Password is wrong');
+    throw new AppError(StatusCodes.UNAUTHORIZED, false, 'Password is wrong');
   }
 
   const token = await jwt.sign(

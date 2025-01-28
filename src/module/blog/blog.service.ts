@@ -1,7 +1,9 @@
+import { StatusCodes } from 'http-status-codes';
 import { IBlog } from './blog.interface';
 import Blog from './blog.model';
 import { JwtPayload } from 'jsonwebtoken';
 import { Types } from 'mongoose';
+import { AppError } from '../../helpers/AppError';
 
 const createBlogDB = async (payload: IBlog, user: JwtPayload) => {
   const { title, content } = payload;
@@ -16,7 +18,7 @@ const createBlogDB = async (payload: IBlog, user: JwtPayload) => {
     return result;
     // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   } catch (error) {
-    throw new Error('Failed to create blog');
+    throw new AppError(StatusCodes.BAD_REQUEST, false, 'Failed to create blog');
   }
 };
 
@@ -27,7 +29,7 @@ const updateBlogDB = async (
 ) => {
   const blogData = await Blog.findById(id);
   if (!blogData) {
-    throw new Error('Blog not found');
+    throw new AppError(StatusCodes.NOT_FOUND, false, 'Blog not found');
   }
   const userObjectId = user._id;
   const authorId = blogData?.author;
@@ -38,13 +40,17 @@ const updateBlogDB = async (
     });
     return result;
   } else {
-    throw new Error('You are not authorized');
+    throw new AppError(
+      StatusCodes.UNAUTHORIZED,
+      false,
+      'You are not authorized',
+    );
   }
 };
 const deleteBlogDB = async (id: string, user: JwtPayload) => {
   const blogData = await Blog.findById(id);
   if (!blogData) {
-    throw new Error('Blog not found');
+    throw new AppError(StatusCodes.NOT_FOUND, false, 'Blog not found');
   }
   const userObjectId = user?._id;
   const authorId = blogData?.author;
@@ -53,7 +59,11 @@ const deleteBlogDB = async (id: string, user: JwtPayload) => {
     const result = await Blog.findByIdAndDelete(id);
     return result;
   } else {
-    throw new Error('You are not authorized');
+    throw new AppError(
+      StatusCodes.UNAUTHORIZED,
+      false,
+      'You are not authorized',
+    );
   }
 };
 
